@@ -14,8 +14,8 @@ void setup(){
 
 void loop()
 {
-  float celsius, humidity, fahrenheit;
-  
+  float celsius, humidity, fahrenheit, dewpoint;
+
   //input
   int chk = DHT.read11(DHT11_PIN);
 
@@ -24,9 +24,22 @@ void loop()
 
   //process
   fahrenheit = ((celsius * 9)/5) + 32;
+  
+  //dewpoint formula from http://andrew.rsmas.miami.edu/bmcnoldy/Humidity.html
+  dewpoint = (((243.04*(log(humidity/100)+((17.625*celsius)/(243.04+celsius)))/(17.625-log(humidity/100)-((17.625*celsius)/(243.04+celsius)))) * 9)/5) + 32;
+
+  //TODO
+  // if dewpoint >= 30 and air temperature <= 32 then start irrigation
+  // 29 , 33
+  // 27 , 34
+  // 25 , 35
+  // 24 , 37
+  // 22 , 38
+  // 20 , 39
+  // 17 , 40
 
   //output
-  lcd.setCursor(0,0); 
+  lcd.setCursor(0,0);
   lcd.print("Temp: ");
   lcd.print(fahrenheit);
   lcd.print((char)223);
@@ -40,5 +53,7 @@ void loop()
   Serial.println("F");
   Serial.print("Relative Humidity = ");
   Serial.println(humidity);
+  Serial.print("Dewpoint = ");
+  Serial.println(dewpoint);
   delay(2000);
 }
