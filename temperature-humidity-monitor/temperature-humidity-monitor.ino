@@ -20,7 +20,7 @@ void loop()
   delay(5000);
   
   float celsius, humidity, fahrenheit, heatIndexF, heatIndexC, dewpointF;
-  
+ 
   //input
   celsius = dht.readTemperature();
   fahrenheit = dht.readTemperature(true);
@@ -42,6 +42,15 @@ void loop()
   //dewpoint formula from http://andrew.rsmas.miami.edu/bmcnoldy/Humidity.html
   dewpointF = (((243.04*(log(humidity/100)+((17.625*celsius)/(243.04+celsius)))/(17.625-log(humidity/100)-((17.625*celsius)/(243.04+celsius)))) * 9)/5) + 32;
   
+   //TODO
+  // if dewpoint >= 30 and air temperature <= 32 then start irrigation
+  // 29 , 33
+  // 27 , 34
+  // 25 , 35
+  // 24 , 37
+  // 22 , 38
+  // 20 , 39
+  // 17 , 40
 
   //output
 
@@ -80,4 +89,4 @@ void loop()
   lcd.print(dewpointF);
   lcd.print("F");
   
-}
+
